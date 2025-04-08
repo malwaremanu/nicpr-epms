@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material 3 UI - Settings</title>
+    
+    <!-- Include CDN resources -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.41/vue.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/gh/dmuy/Material-Toast@2.0.4/dist/mdtoast.js"></script>
+    
+    <!-- Load component scripts -->
+    <script src="assets/js/components/AccountSettings.js"></script>
+    <script src="assets/js/components/PrivacySettings.js"></script>
+    <!-- Other component scripts -->
+    
+    <!-- Load shared data and utilities -->
+    <script src="assets/js/data/menu.js"></script>
+    <script src="assets/js/data/settings.js"></script>
+    
+    <!-- Include your CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dmuy/Material-Toast@2.0.4/dist/mdtoast.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style type="text/tailwindcss">
+      /* Your Tailwind config here */
+    </style>
+</head>
+<body>
+    <div id="app" class="flex h-screen">
+        <!-- App HTML content -->
+    </div>
+
+    <script>
+        // Use the globally defined components and data
+        const app = Vue.createApp({
+            components: {
+                AccountSettings: window.AccountSettings,
+                PrivacySettings: window.PrivacySettings,
+                // Other components
+            },
+            data() {
+                return {
+                    selectedSetting: null,
+                    isMobile: window.innerWidth < 768,
+                    menu: window.menuData || [
+                        // Fallback menu data
+                        { name: 'Tickets', icon: 'confirmation_number', active: false, link: '/index.html' },    
+                        { name: 'Chats', icon: 'chat', active: false },
+                        { name: 'Groups', icon: 'group', active: false },                        
+                        { name: 'Settings', icon: 'settings', active: true, link: '/settings.html' }
+                    ],
+                    settings_menu: window.settingsData || [
+                        // Fallback settings data
+                        {
+                            icon: 'key',
+                            heading: 'Account',
+                            sub_title: 'Security notifications, change number',
+                            component: 'AccountSettings'
+                        },
+                        // Other settings
+                    ],
+                    fab: {
+                        icon: 'add'
+                    }
+                };
+            },
+            methods: {
+                selectSetting(index) {
+                    this.selectedSetting = index;
+                },
+                backToSettings() {
+                    this.selectedSetting = null;
+                },
+                checkScreenSize() {
+                    this.isMobile = window.innerWidth < 768;
+                },
+                modtoast() {
+                    mdtoast('Hello, World!', { duration: 3000, position: 'top center' });
+                }
+            },
+            mounted() {
+                this.checkScreenSize();
+                window.addEventListener('resize', this.checkScreenSize);
+            },
+            unmounted() {
+                window.removeEventListener('resize', this.checkScreenSize);
+            }
+        });
+        
+        app.mount('#app');
+    </script>
+</body>
+</html>
