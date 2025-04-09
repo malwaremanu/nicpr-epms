@@ -1,8 +1,2 @@
-/* 
-  X-Content-Type-Options: nosniff
-
-/pages/*.js
-  Content-Type: application/javascript
-
-/components/*.js
+/pages/*
   Content-Type: application/javascript
